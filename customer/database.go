@@ -32,8 +32,8 @@ type database struct {
 func newDatabase() (*database, error) {
 	user := os.Getenv("POSTGRES_USER")
 	password := os.Getenv("POSTGRES_PASS")
-	host := os.Getenv("POSTGRESQL_SERVICE_HOST")
-	port := os.Getenv("POSTGRESQL_SERVICE_PORT")
+	host := os.Getenv("HOTROD_POSTGRESQL_SERVICE_HOST")
+	port := os.Getenv("HOTROD_POSTGRESQL_SERVICE_PORT")
 	connectStr := fmt.Sprintf("postgres://%s:%s@%s:%s/customers?sslmode=disable", user, password, host, port)
 	db, err := sql.Open("postgres", connectStr)
 	return &database{db}, err
