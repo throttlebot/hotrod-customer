@@ -22,6 +22,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"gitlab.com/kelda-hotrod/hotrod-base/pkg/tracing"
+	"os"
 )
 
 // Client is a remote client that implements customer.Interface
@@ -42,7 +43,9 @@ func NewClient() *Client {
 func (c *Client) Get(ctx context.Context, customerID string) (*Customer, error) {
 	log.WithField("customer_id", customerID).Info("Getting customer")
 
-	url := fmt.Sprintf("http://127.0.0.1:8081/customer?customer=%s", customerID)
+	clientIP := os.Getenv("HOTROD_CUSTOMER_SERVICE_HOST") + ":" + os.Getenv("HOTROD_CUSTOMER_SERVICE_PORT")
+
+	url := fmt.Sprintf("http://" + clientIP + "/customer?customer=%s", customerID)
 	var customer Customer
 	if err := c.client.GetJSON(ctx, "/customer", url, &customer); err != nil {
 		return nil, err
