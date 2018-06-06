@@ -49,7 +49,7 @@ stage:
     - sed -i -e s/REPLICA_COUNT/3/g hotrod.yaml
     - kubectl apply -f hotrod.yaml --namespace $KUBE_NAMESPACE
     - kubectl set env deployment/$CI_ENVIRONMENT_SLUG-$IMAGE_NAME
-    POSTGRES_USER=$POSTGRES_USER
-    POSTGRES_PASS=$POSTGRES_PASS
+      POSTGRES_USER=$POSTGRES_USER
+      POSTGRES_PASS=$POSTGRES_PASS
 
 
