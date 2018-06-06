@@ -43,7 +43,7 @@ func NewClient() *Client {
 func (c *Client) Get(ctx context.Context, customerID string) (*Customer, error) {
 	log.WithField("customer_id", customerID).Info("Getting customer")
 
-	clientIP := os.Getenv("HOTROD_CUSTOMER_SERVICE_HOST") + ":" + os.Getenv("HOTROD_CUSTOMER_SERVICE_PORT")
+	clientIP := "hotrod-customer" + ":" + os.Getenv("HOTROD_CUSTOMER_SERVICE_PORT")
 
 	url := fmt.Sprintf("http://" + clientIP + "/customer?customer=%s", customerID)
 	var customer Customer
