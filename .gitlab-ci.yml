@@ -1,6 +1,7 @@
 stages:
   - build
   - stage
+  - test
   - deploy
 
 image: docker:latest
@@ -62,6 +63,17 @@ stage:
       POSTGRES_URL=hotrod-postgres-postgresql:5432
       --namespace $KUBE_NAMESPACE
 
+unit:
+  stage: test
+  environment:
+    name: StageEnv
+  variables:
+    KUBERNETES_NAMESPACE_OVERWRITE: hotrod
+  script:
+    - apk add python py-pip
+    - pip install requests
+    - kubectl rollout status deployment/$CI_ENVIRONMENT_SLUG-hotrod-customer --namespace $KUBE_NAMESPACE
+    - python customer_unit_test.py
 
 production:
   stage: deploy
