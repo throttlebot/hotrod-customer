@@ -76,9 +76,6 @@ unit:
     - apk add python py-pip
     - pip install requests
     - kubectl rollout status deployment/$CI_ENVIRONMENT_SLUG-hotrod-customer --namespace $KUBE_NAMESPACE
-    - kubectl describe service/hotrod-customer
-    - sleep 20
-    - kubectl describe service/hotrod-customer
     - python customer_unit_test.py
 
 production:
