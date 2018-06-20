@@ -17,7 +17,7 @@ variables:
   DOCKER_USER: willwangkelda
   POSTGRES_USER: hotrod
   POSTGRES_PASS: keldakelda
-  EXTERNAL_POSTGRES_HOST: 35.194.75.119
+  EXTERNAL_POSTGRES_HOST: 35.197.41.123
   EXTERNAL_POSTGRES_PORT: 5432
   KUBECTL_URL: https://storage.googleapis.com/kubernetes-release/release/v1.10.3/bin/linux/amd64/kubectl
   KUBE_NAMESPACE: hotrod
