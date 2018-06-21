@@ -1,0 +1,11 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: postgres-ext
+spec:
+  hosts:
+  - 35.197.41.123
+  ports:
+  - number: 5432
+    name: postgres
+    protocol: TCP
