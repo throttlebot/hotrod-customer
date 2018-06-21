@@ -6,12 +6,7 @@ EXPOSE 8081
 RUN mkdir -p /go/src/gitlab.com/will.wang1
 RUN mkdir -p /go/bin
 
-WORKDIR /go/src/gitlab.com/will.wang1
-
-ARG git_pass
-ARG build_time=1
-
-RUN git clone https://user:$git_pass@gitlab.com/will.wang1/hotrod-customer
+ADD . /go/src/gitlab.com/will.wang1/hotrod-customer
 
 WORKDIR /go/src/gitlab.com/will.wang1/hotrod-customer
 
