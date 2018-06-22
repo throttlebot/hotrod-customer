@@ -22,6 +22,8 @@ import (
 
 	"gitlab.com/will.wang1/hotrod-base/pkg/httperr"
 	"gitlab.com/will.wang1/hotrod-base/pkg/tracing"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 // Server implements Customer service
@@ -52,6 +54,7 @@ func (s *Server) Run() error {
 func (s *Server) createServeMux() http.Handler {
 	mux := tracing.NewServeMux()
 	mux.Handle("/customer", http.HandlerFunc(s.customer))
+	mux.Handle("/metrics", promhttp.Handler())
 	return mux
 }
 
