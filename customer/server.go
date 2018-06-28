@@ -54,6 +54,7 @@ func (s *Server) Run() error {
 func (s *Server) createServeMux() http.Handler {
 	mux := tracing.NewServeMux()
 	mux.Handle("/customer", http.HandlerFunc(s.customer))
+	mux.Handle("/list", http.HandlerFunc(s.listCustomers))
 	mux.Handle("/metrics", promhttp.Handler())
 	return mux
 }
@@ -73,6 +74,26 @@ func (s *Server) customer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response, err := s.database.Get(ctx, customerID)
+	if httperr.HandleError(w, err, http.StatusInternalServerError) {
+		log.WithError(err).Error("request failed")
+		return
+	}
+
+	data, err := json.Marshal(response)
+	if httperr.HandleError(w, err, http.StatusInternalServerError) {
+		log.WithError(err).Error("cannot marshal response")
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(data)
+}
+
+func (s *Server) listCustomers(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	log.WithField("method", r.Method).WithField("url", r.URL).Info("HTTP request received")
+
+	response, err := s.database.List(ctx)
 	if httperr.HandleError(w, err, http.StatusInternalServerError) {
 		log.WithError(err).Error("request failed")
 		return
