@@ -21,6 +21,15 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/kelda-inc/hotrod-base"
+  packages = [
+    "pkg/httperr",
+    "pkg/tracing"
+  ]
+  revision = "1b4b1be1ff48a8269837aaa62fe8e1dcf8486a00"
+
+[[projects]]
+  branch = "master"
   name = "github.com/lib/pq"
   packages = [
     ".",
@@ -68,7 +77,7 @@
     "nfs",
     "xfs"
   ]
-  revision = "7d6f385de8bea29190f15ba9931442a0eaef9af7"
+  revision = "ae68e2d4c00fed4943b5f6698d504a5fe083da8a"
 
 [[projects]]
   name = "github.com/sirupsen/logrus"
@@ -90,15 +99,6 @@
 
 [[projects]]
   branch = "master"
-  name = "gitlab.com/will.wang1/hotrod-base"
-  packages = [
-    "pkg/httperr",
-    "pkg/tracing"
-  ]
-  revision = "45976170c3c1ca9e8220c867c7a576ed28e26ced"
-
-[[projects]]
-  branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
   revision = "a49355c7e3f8fe157a85be2f77e6e269a0f89602"
@@ -110,11 +110,11 @@
     "unix",
     "windows"
   ]
-  revision = "ad87a3a340fa7f3bed189293fbfa7a9b7e021ae1"
+  revision = "1b2967e3c290b7c545b3db0deeda16e9be4f98a2"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "377955532ab0cb4e64f72c10e085065c137df71f7990a14f6e969fe6e32cae92"
+  inputs-digest = "1625608b42eae2984b41313b52a19f4193f29ee025c741292ecab7aa8a272b82"
   solver-name = "gps-cdcl"
   solver-version = 1

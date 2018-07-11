@@ -20,7 +20,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"gitlab.com/will.wang1/hotrod-customer/customer"
+	"github.com/kelda-inc/hotrod-customer/customer"
 )
 
 // customerCmd represents the customer command
