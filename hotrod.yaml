@@ -41,5 +41,15 @@ spec:
         env:
         - name: GET_HOSTS_FROM
           value: dns
+        - name: POSTGRES_USER
+          valueFrom:
+          secretKeyRef:
+            name: postgres
+            key: username
+        - name: POSTGRES_PASS
+          valueFrom:
+          secretKeyRef:
+            name: postgres
+            key: password
         ports:
         - containerPort: 8081
