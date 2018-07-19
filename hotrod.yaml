@@ -42,14 +42,11 @@ spec:
         - name: GET_HOSTS_FROM
           value: dns
         - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: postgres
-              key: username
+          value: hotrod
         - name: POSTGRES_PASS
           valueFrom:
             secretKeyRef:
-              name: postgres
-              key: password
+              name: hotrod-postgres-postgresql
+              key: postgres-password
         ports:
         - containerPort: 8081
