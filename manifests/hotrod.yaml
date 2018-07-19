@@ -42,7 +42,15 @@ spec:
         - name: GET_HOSTS_FROM
           value: dns
         - name: POSTGRES_USER
-          value: hotrod
+          valueFrom:
+            configMapKeyRef:
+              name: customer-configs
+              key: postgres-user
+        - name: POSTGRES_URL
+          valueFrom:
+            configMapKeyRef:
+              name: customer-configs
+              key: postgres-url
         - name: POSTGRES_PASS
           valueFrom:
             secretKeyRef:
