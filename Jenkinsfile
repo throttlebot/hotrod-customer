@@ -1,13 +1,16 @@
 node {
     def scmVars = checkout scm
+    def image
+    def imageName = "willwangkelda/hotrod-customer:release-${scmVars.GIT_COMMIT}"
     stage('Build') {
-        def image = docker.build("willwangkelda/hotrod-customer:${scmVars.GIT_COMMIT}")
-        image.push()
+        image = docker.build(imageName)
     }
     stage('Test') {
-        // Skip
+ //       image.withRun('-p 8083:8083') { c ->
+ //         sh 'python route_unit_test.py localhost'
+ //       }
     }
-    stage('Deploy') {
-        // Skip
+    stage('Push') {
+        image.push()
     }
 }
