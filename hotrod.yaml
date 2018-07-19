@@ -43,13 +43,13 @@ spec:
           value: dns
         - name: POSTGRES_USER
           valueFrom:
-          secretKeyRef:
-            name: postgres
-            key: username
+            secretKeyRef:
+              name: postgres
+              key: username
         - name: POSTGRES_PASS
           valueFrom:
-          secretKeyRef:
-            name: postgres
-            key: password
+            secretKeyRef:
+              name: postgres
+              key: password
         ports:
         - containerPort: 8081
