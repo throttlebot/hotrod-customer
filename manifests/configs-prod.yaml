@@ -5,7 +5,7 @@ metadata:
   namespace: hotrod
 data:
   postgres-user: hotrod
-  postgres-url: hotrod-postgres.cxlnfdsjrvka.us-west-2.rds.amazonaws.com:5432
+  postgres-url: hotrodpostgres.cxlnfdsjrvka.us-west-2.rds.amazonaws.com:5432
 ---
 apiVersion: v1
 kind: Secret
