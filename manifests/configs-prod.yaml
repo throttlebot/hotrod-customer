@@ -13,4 +13,4 @@ metadata:
   name: postgres-postgresql
   namespace: hotrod
 data:
-  postgres-password: keldakelda
+  postgres-password: a2VsZGFrZWxkYQ==
