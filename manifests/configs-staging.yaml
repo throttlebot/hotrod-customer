@@ -5,4 +5,4 @@ metadata:
   namespace: hotrod
 data:
   postgres-user: hotrod
-  postgres-url: hotrod-postgres-postgresql:5432
+  postgres-url: postgres-postgresql:5432
