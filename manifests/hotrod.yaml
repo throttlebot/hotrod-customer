@@ -54,7 +54,7 @@ spec:
         - name: POSTGRES_PASS
           valueFrom:
             secretKeyRef:
-              name: hotrod-postgres-postgresql
+              name: postgres-postgresql
               key: postgres-password
         ports:
         - containerPort: 8081
