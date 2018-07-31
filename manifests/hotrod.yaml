@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: hotrod-customer
-        image: index.docker.io/willwangkelda/hotrod-customer
+        image: index.docker.io/willwangkelda/hotrod-customer:5b096acfe29e672ef8279f50bb35cdb21d3dcd62
         imagePullPolicy: IfNotPresent
         command: ["/go/bin/hotrod", "customer"]
         env:
