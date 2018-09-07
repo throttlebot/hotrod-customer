@@ -20,8 +20,6 @@ import (
 	"net/http"
 	"os"
 
-	log "github.com/sirupsen/logrus"
-
 	"github.com/kelda-inc/hotrod-base/pkg/tracing"
 )
 
@@ -48,8 +46,6 @@ func NewClient() *Client {
 
 // Get implements customer.Interface#Get as an RPC
 func (c *Client) Get(ctx context.Context, customerID string) (*Customer, error) {
-	log.WithField("customer_id", customerID).Info("Getting customer")
-
 	url := fmt.Sprintf(c.address + "/customer?customer=%s", customerID)
 	var customer Customer
 	if err := c.client.GetJSON(ctx, "/customer", url, &customer); err != nil {
@@ -59,7 +55,6 @@ func (c *Client) Get(ctx context.Context, customerID string) (*Customer, error) 
 }
 
 func (c *Client) ListCustomerPublicInfo(ctx context.Context) ([]Customer, error) {
-	log.Info("Getting all customers")
 	url := c.address + "/list"
 	var customers []Customer
 	if err := c.client.GetJSON(ctx, "/list", url, &customers); err != nil {
@@ -69,7 +64,6 @@ func (c *Client) ListCustomerPublicInfo(ctx context.Context) ([]Customer, error)
 }
 
 func (c *Client) Transfer(ctx context.Context, to, from string, amount int) error {
-	log.Infof("Transferring balance of %d from %s to %s", amount, from, to)
 	url := fmt.Sprintf(c.address + "/transfer?to=%s&from=%s&amount=%d", to, from, amount)
 	return c.client.GetJSON(ctx, "/customer", url, nil)
 }

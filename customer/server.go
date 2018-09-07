@@ -18,8 +18,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-	log "github.com/sirupsen/logrus"
-
 	"github.com/kelda-inc/hotrod-base/pkg/httperr"
 	"github.com/kelda-inc/hotrod-base/pkg/tracing"
 
@@ -48,7 +46,6 @@ func NewServer(hostPort string) (*Server, error) {
 // Run starts the Customer server
 func (s *Server) Run() error {
 	mux := s.createServeMux()
-	log.WithField("address", "http://"+s.hostPort).Info("Starting")
 	return http.ListenAndServe(s.hostPort, mux)
 }
 
@@ -63,9 +60,7 @@ func (s *Server) createServeMux() http.Handler {
 
 func (s *Server) customer(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	log.WithField("method", r.Method).WithField("url", r.URL).Info("HTTP request received")
 	if err := r.ParseForm(); httperr.HandleError(w, err, http.StatusBadRequest) {
-		log.WithError(err).Error("bad request")
 		return
 	}
 
@@ -77,13 +72,11 @@ func (s *Server) customer(w http.ResponseWriter, r *http.Request) {
 
 	response, err := s.database.Get(ctx, customerID)
 	if httperr.HandleError(w, err, http.StatusInternalServerError) {
-		log.WithError(err).Error("request failed")
 		return
 	}
 
 	data, err := json.Marshal(response)
 	if httperr.HandleError(w, err, http.StatusInternalServerError) {
-		log.WithError(err).Error("cannot marshal response")
 		return
 	}
 
@@ -93,17 +86,14 @@ func (s *Server) customer(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) listCustomers(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	log.WithField("method", r.Method).WithField("url", r.URL).Info("HTTP request received")
 
 	response, err := s.database.List(ctx)
 	if httperr.HandleError(w, err, http.StatusInternalServerError) {
-		log.WithError(err).Error("request failed")
 		return
 	}
 
 	data, err := json.Marshal(response)
 	if httperr.HandleError(w, err, http.StatusInternalServerError) {
-		log.WithError(err).Error("cannot marshal response")
 		return
 	}
 
@@ -112,11 +102,9 @@ func (s *Server) listCustomers(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) transfer(w http.ResponseWriter, r *http.Request) {
-	log.Infof("Receive request to transfer")
 
 	ctx := r.Context()
 	if err := r.ParseForm(); httperr.HandleError(w, err, http.StatusBadRequest) {
-		log.WithError(err).Error("bad request")
 		return
 	}
 
@@ -126,21 +114,14 @@ func (s *Server) transfer(w http.ResponseWriter, r *http.Request) {
 	if toID == "" || fromID == "" || amount == "" {
 		msg := fmt.Sprintf("Missing field: to=%s, from=%s, amount=%s", toID, fromID, amount)
 		http.Error(w, msg, http.StatusBadRequest)
-		log.Error(msg)
-		log.Error(r.URL)
 		return
-	} else {
-		log.Infof(fmt.Sprintf("Transfer Info: to=%s, from=%s, amount=%s", toID, fromID, amount))
 	}
 
 	err := s.database.Transfer(ctx, toID, fromID, amount)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		log.Error(err.Error())
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte("success"))
-	log.Infof("Finish request to transfer")
-
 }

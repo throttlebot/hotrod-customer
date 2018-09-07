@@ -19,7 +19,6 @@ import (
 	"database/sql"
 
 	_ "github.com/lib/pq"
-	log "github.com/sirupsen/logrus"
 	"os"
 	"fmt"
 	"strconv"
@@ -40,7 +39,6 @@ func newDatabase() (*database, error) {
 }
 
 func (d *database) Get(ctx context.Context, customerID string) (*Customer, error) {
-	log.WithField("customer_id", customerID).Info("Loading customer")
 
 	customer := Customer{ID: customerID}
 	err := d.QueryRow("SELECT name, location FROM customers WHERE id = $1", customerID).Scan(
@@ -51,7 +49,6 @@ func (d *database) Get(ctx context.Context, customerID string) (*Customer, error
 
 
 func (d *database) List(ctx context.Context ) ([]Customer, error) {
-	log.Info("Loading all customers")
 	rows, err := d.Query("SELECT name, id FROM customers")
 	if err != nil {
 		return nil, err
