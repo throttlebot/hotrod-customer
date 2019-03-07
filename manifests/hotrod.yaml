@@ -36,8 +36,8 @@ spec:
     spec:
       containers:
       - name: hotrod-customer
-        image: index.docker.io/willwangkelda/hotrod-customer:5b096acfe29e672ef8279f50bb35cdb21d3dcd62
-        imagePullPolicy: IfNotPresent
+        image: index.docker.io/hantaowang/hotrod-customer:log
+        imagePullPolicy: Always
         command: ["/go/bin/hotrod", "customer"]
         env:
         - name: GET_HOSTS_FROM
